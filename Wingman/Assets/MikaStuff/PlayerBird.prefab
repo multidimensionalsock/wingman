@@ -483,7 +483,7 @@ Transform:
   - {fileID: 9121864183951559658}
   - {fileID: 5473704216027837664}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3357657978564053413
 Animator:
@@ -521,9 +521,11 @@ MonoBehaviour:
   jumpForce: 5
   numberOfJumps: 1
   movementSpeed: 2
-  sprintSpeed: 5
+  sprintSpeed: 4
   rotationSpeed: 0.1
   cameraTranform: {fileID: 0}
+  glidingGravityScale: 0.1
+  glideAirControlMultiplier: 1.5
 --- !u!114 &7756484398013727909
 MonoBehaviour:
   m_ObjectHideFlags: 0
