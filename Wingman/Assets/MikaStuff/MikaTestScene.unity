@@ -133,9 +133,29 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2147220389511767230, guid: 2f14cedfde3bf9045ac15940859d09e1,
         type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147220389511767230, guid: 2f14cedfde3bf9045ac15940859d09e1,
+        type: 3}
+      propertyPath: sprintSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147220389511767230, guid: 2f14cedfde3bf9045ac15940859d09e1,
+        type: 3}
       propertyPath: cameraTranform
       value: 
       objectReference: {fileID: 1281993472}
+    - target: {fileID: 2147220389511767230, guid: 2f14cedfde3bf9045ac15940859d09e1,
+        type: 3}
+      propertyPath: glidingGravityScale
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147220389511767230, guid: 2f14cedfde3bf9045ac15940859d09e1,
+        type: 3}
+      propertyPath: glideAirControlMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8301031711183767909, guid: 2f14cedfde3bf9045ac15940859d09e1,
         type: 3}
       propertyPath: m_Name
@@ -195,6 +215,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9082956567708005849, guid: 2f14cedfde3bf9045ac15940859d09e1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
