@@ -124,6 +124,59 @@ Transform:
   m_Father: {fileID: 917153724909115392}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2628821638373162687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1011386909515367007}
+  - component: {fileID: 3153179199544558482}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1011386909515367007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2628821638373162687}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8680935606725694431}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3153179199544558482
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2628821638373162687}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.25, y: 0.25, z: 0.25}
+  m_Center: {x: 0, y: -0.06, z: 0}
 --- !u!1 &5323800242047073955
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +513,6 @@ GameObject:
   - component: {fileID: 7756484398013727909}
   - component: {fileID: 9082956567708005849}
   - component: {fileID: 8264449533569491957}
-  - component: {fileID: 5685172898839947584}
   m_Layer: 0
   m_Name: PlayerBird
   m_TagString: Player
@@ -482,8 +534,9 @@ Transform:
   m_Children:
   - {fileID: 9121864183951559658}
   - {fileID: 5473704216027837664}
+  - {fileID: 1011386909515367007}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3357657978564053413
 Animator:
@@ -518,7 +571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e456ff96578b9eb489449752f60fdad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
+  _GroundCheckBox: {fileID: 3153179199544558482}
+  jumpForce: 4
   numberOfJumps: 1
   movementSpeed: 2
   sprintSpeed: 4
@@ -603,29 +657,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.49002814, y: 0.7, z: 0.5212898}
+  m_Size: {x: 0.6, y: 0.7, z: 0.6}
   m_Center: {x: 0, y: 0.33, z: 0}
---- !u!65 &5685172898839947584
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8301031711183767909}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.4739241, y: 0.69618416, z: 0.43269885}
-  m_Center: {x: 0.008597314, y: 0.35, z: -0.018266767}
 --- !u!1 &8310988171510730771
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody _rigidbody;
     Animator _animator;
     PlayerInput _input;
+    [SerializeField]BoxCollider _GroundCheckBox;
     Vector3 _movementDirection;
     Coroutine _movementCoroutine;
     bool grounded = true;
@@ -138,23 +139,32 @@ public class PlayerMovement : MonoBehaviour
         isSprinting = false;
         _animator.SetBool("isSprinting?", false);
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             grounded = true;
             _animator.SetBool("isJumping?", false);
             _animator.SetBool("isGliding?", false);
+            _animator.SetBool("isWalking?", true);
             isGliding = false;
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            grounded = false;
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+       
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            grounded = false;
-        }
+      
     }
     private void FixedUpdate()
     {
