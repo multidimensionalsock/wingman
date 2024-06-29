@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee,
         type: 3}
@@ -66,7 +66,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee,
         type: 3}
       propertyPath: m_Name
-      value: BOOT_norah Variant
+      value: Boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -82,5 +87,36 @@ PrefabInstance:
     - {fileID: -7075772901919598368, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee, type: 3}
     - {fileID: -1575835592734832380, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2256815865354202723}
   m_SourcePrefab: {fileID: 100100000, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee, type: 3}
+--- !u!1 &1642736614742521627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e6088b6b9f5c94e4fbc2426f4f27b9ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 1877233511296682570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2256815865354202723
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642736614742521627}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.293133, y: 2.5322852, z: 8.761543}
+  m_Center: {x: -2.5568867, y: 3.1906211, z: 1.0383158}
