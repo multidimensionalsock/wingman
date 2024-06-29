@@ -82,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
         GameObject cameraLook = transform.GetChild(0).gameObject;
         GameObject model = transform.GetChild(1).gameObject;
         float tempSpeed;
+        _animator.SetBool("isWalking?", true);
+
         while (_movementDirection != Vector3.zero)
         {
             //if (m_movementLock)
@@ -89,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
             //    yield return new WaitForFixedUpdate();
             //    continue;
             //}
-            _animator.SetBool("isWalking?", true);
             
             if (isSprinting)
             {
@@ -145,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetBool("isJumping?", false);
             _animator.SetBool("isGliding?", false);
             isGliding = false;
-            
         }
     }
 
@@ -161,7 +161,8 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             currentJumpCount = 0;
+
         }
-        
+
     }
 }
