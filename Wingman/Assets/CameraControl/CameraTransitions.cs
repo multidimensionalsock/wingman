@@ -18,12 +18,14 @@ public class CameraTransitions : MonoBehaviour
         SwapCamera.CameraSwap += SetCameraArea;
     }
 
-    void SetCameraArea(int camera)
+    void SetCameraArea(Areas camera, bool state)
     {
-        //transform.GetChild(currentCamera).gameObject.active = false;
-        transform.GetChild(camera).gameObject.SetActive(true);
-        animator.SetInteger("CameraPhase", camera);
-        currentCamera = camera;
+        switch(camera)
+        {
+            case Areas.Island1Cliffs:
+                animator.SetBool("Island1Cliffs", state);
+                break;
+        }
         
     }
 }
