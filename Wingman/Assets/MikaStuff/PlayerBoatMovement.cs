@@ -15,8 +15,12 @@ public class PlayerBoatMovement : MonoBehaviour
     
     Coroutine _movementCoroutine;
     [SerializeField] float movementSpeed;
+    [SerializeField] float reverseSpeed;
+
     [SerializeField] float turningSpeed;
-    [SerializeField] Transform cameraTranform;
+    /*[SerializeField] Transform cameraTranform;*/
+    [SerializeField] GameObject pivotPoint;
+
     void Start()
     {
         
@@ -57,19 +61,11 @@ public class PlayerBoatMovement : MonoBehaviour
         float tempSpeed = movementSpeed;
         while (_movementDirection != Vector3.zero)
         {
-            transform.Translate(Vector3.forward * movementSpeed * _movementDirectionY);
+            if (_movementDirectionY > 0) { _rigidbody.AddForce(transform.forward * movementSpeed * _movementDirectionY); }
+            else { _rigidbody.AddForce(transform.forward * reverseSpeed * _movementDirectionY); }
+
             transform.Rotate(Vector3.up,turningSpeed * _movementDirectionX);
             
-            /*Vector3 prepos = new Vector3(model.transform.position.x, -90, transform.position.z);
-            transform.position += cameraTranform.forward * _movementDirection.z * tempSpeed * Time.fixedDeltaTime;
-            transform.position += cameraTranform.right * _movementDirection.x * tempSpeed * Time.fixedDeltaTime;
-
-            Vector3 newpos = new Vector3(model.transform.position.x, -90, transform.position.z);
-            model.transform.rotation = Quaternion.LookRotation(newpos - prepos, Vector3.up);
-            transform.Rotate(Vector3.up, tempSpeed* Time.fixedDeltaTime* model.transform.rotation.x);
-            //Quaternion targetRot = cameraLook.transform.rotation * Quaternion.LookRotation(_movementDirection, Vector3.up);
-            // model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRot, rotationSpeed);
-            */
             yield return new WaitForFixedUpdate();
         }
     }
