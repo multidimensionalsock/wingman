@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _GroundCheckBox: {fileID: 3153179199544558482}
-  jumpForce: 4
+  jumpForce: 6
   numberOfJumps: 1
   movementSpeed: 2
   sprintSpeed: 4
