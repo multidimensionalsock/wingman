@@ -10,8 +10,12 @@ public class PlayerBoatMovement : MonoBehaviour
     PlayerInput _input;
     Rigidbody _rigidbody;
     Vector3 _movementDirection;
+    float _movementDirectionX;
+    float _movementDirectionY;
+    
     Coroutine _movementCoroutine;
     [SerializeField] float movementSpeed;
+    [SerializeField] float turningSpeed;
     [SerializeField] Transform cameraTranform;
     void Start()
     {
@@ -32,6 +36,8 @@ public class PlayerBoatMovement : MonoBehaviour
     void StartMove(InputAction.CallbackContext context)
     {
         Vector2 temp = context.ReadValue<Vector2>();
+        _movementDirectionX = temp.x;
+        _movementDirectionY = temp.y;
         _movementDirection = new Vector3(temp.x, 0f, temp.y);
         if (_movementCoroutine != null) return;
         _movementCoroutine = StartCoroutine(Move());
@@ -50,8 +56,11 @@ public class PlayerBoatMovement : MonoBehaviour
         GameObject model = transform.GetChild(0).gameObject;
         float tempSpeed = movementSpeed;
         while (_movementDirection != Vector3.zero)
-        {            
-            Vector3 prepos = new Vector3(model.transform.position.x, -90, transform.position.z);
+        {
+            transform.Translate(Vector3.forward * movementSpeed * _movementDirectionY);
+            transform.Rotate(Vector3.up,turningSpeed * _movementDirectionX);
+            
+            /*Vector3 prepos = new Vector3(model.transform.position.x, -90, transform.position.z);
             transform.position += cameraTranform.forward * _movementDirection.z * tempSpeed * Time.fixedDeltaTime;
             transform.position += cameraTranform.right * _movementDirection.x * tempSpeed * Time.fixedDeltaTime;
 
@@ -60,7 +69,7 @@ public class PlayerBoatMovement : MonoBehaviour
             transform.Rotate(Vector3.up, tempSpeed* Time.fixedDeltaTime* model.transform.rotation.x);
             //Quaternion targetRot = cameraLook.transform.rotation * Quaternion.LookRotation(_movementDirection, Vector3.up);
             // model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRot, rotationSpeed);
-
+            */
             yield return new WaitForFixedUpdate();
         }
     }
