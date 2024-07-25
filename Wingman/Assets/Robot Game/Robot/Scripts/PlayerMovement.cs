@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour, IInteract
@@ -9,7 +10,9 @@ public class PlayerMovement : MonoBehaviour, IInteract
     PlayerInput _input;
     Vector2 _movementDirection;
     Coroutine _movementCoroutine;
+    Coroutine _cameraCoroutine;
     bool movementLocked = false;
+    Vector3 cameraDirection;
     [SerializeField] float movementForce;
     [SerializeField] float maxSpeed;
     [SerializeField] float rotationSpeed;
@@ -20,12 +23,44 @@ public class PlayerMovement : MonoBehaviour, IInteract
         _input = GetComponent<PlayerInput>();
         _rigidbody = GetComponent<Rigidbody>();
         _movementCoroutine = null;
+        _cameraCoroutine = null;
         _movementDirection = Vector2.zero;
 
         _input.currentActionMap.FindAction("Move").performed += StartMove;
         _input.currentActionMap.FindAction("Move").canceled += EndMove;
         _input.currentActionMap.FindAction("Jump").performed += Jump;
         _input.currentActionMap.FindAction("Interact").performed += Interact;
+        _input.currentActionMap.FindAction("Camera").performed += CameraStart;
+        _input.currentActionMap.FindAction("Camera").canceled += CameraStop;
+    }
+
+    void CameraStart(InputAction.CallbackContext context)
+    {
+        cameraDirection = context.ReadValue<Vector3>() * Time.deltaTime;
+        if (_cameraCoroutine != null) { StopCoroutine(_cameraCoroutine); }
+        _cameraCoroutine = StartCoroutine(CameraMove());
+
+    }
+
+    void CameraStop(InputAction.CallbackContext context)
+    {
+        if (_cameraCoroutine != null)
+        {
+            StopCoroutine(_cameraCoroutine);
+        }
+        cameraDirection = Vector3.zero;
+        
+    }
+
+    IEnumerator CameraMove()
+    {
+        Transform cameraLook = transform.GetChild(0).gameObject.transform;
+        while (cameraDirection != Vector3.zero)
+        {
+            cameraLook.rotation = Quaternion.Slerp(cameraLook.rotation, cameraLook.rotation * Quaternion.LookRotation(cameraDirection), 0.1f / 5f);
+            //cameraLook.rotation = cameraLook.rotation * (Quaternion.LookRotation(cameraDirection));
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     void StartMove(InputAction.CallbackContext context) 
