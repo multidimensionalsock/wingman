@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour, IInteract
     [SerializeField] float rotationSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] float climbSpeed = 0.01f;
-    public bool onLadder = false;
+    bool onLadder = false;
     bool grounded = false;
 
     private void OnEnable()
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour, IInteract
         while (onLadder)
         {
             if (_movementDirection == Vector2.zero) {  _rigidbody.velocity = Vector3.zero; }
-            _rigidbody.velocity = new Vector3(0, _movementDirection.y * climbSpeed, 0);
+            _rigidbody.velocity += new Vector3(0, _movementDirection.y * climbSpeed, 0);
             yield return new WaitForFixedUpdate();
         }
         _rigidbody.useGravity = true;
@@ -108,9 +108,10 @@ public class PlayerMovement : MonoBehaviour, IInteract
 
         while (_movementDirection != Vector2.zero && !movementLocked)
         {
-            if (!onLadder) { _rigidbody.AddForce(cameraLook.transform.forward * _movementDirection.y * movementForce); }
+            if (!onLadder) _rigidbody.AddForce(cameraLook.transform.forward * _movementDirection.y * movementForce); 
             _rigidbody.AddForce(cameraLook.transform.right * _movementDirection.x * movementForce);
-            _rigidbody.velocity = Vector3.ClampMagnitude(Vector3.ProjectOnPlane(_rigidbody.velocity, Vector3.up), maxSpeed) + (Vector3.up * _rigidbody.velocity.y); 
+            //_rigidbody.velocity = Vector3.ClampMagnitude(Vector3.ProjectOnPlane(_rigidbody.velocity, Vector3.up), maxSpeed) + (Vector3.up * _rigidbody.velocity.y); 
+            _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity,  maxSpeed);
 
             Quaternion targetRot = cameraLook.transform.rotation * Quaternion.LookRotation(new Vector3(_movementDirection.x, 0, _movementDirection.y), Vector3.up);
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRot, rotationSpeed);

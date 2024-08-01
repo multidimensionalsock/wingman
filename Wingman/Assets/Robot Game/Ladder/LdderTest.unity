@@ -601,7 +601,7 @@ PrefabInstance:
     - target: {fileID: 523465153296425700, guid: f48863f60311f27488a10544c2cf59a0,
         type: 3}
       propertyPath: climbSpeed
-      value: 1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4610953227530155533, guid: f48863f60311f27488a10544c2cf59a0,
         type: 3}
