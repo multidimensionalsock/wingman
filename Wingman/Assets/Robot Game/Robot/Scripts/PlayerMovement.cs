@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour, IInteract
     [SerializeField] float maxSpeed;
     [SerializeField] float rotationSpeed;
     [SerializeField] float jumpForce;
+    [SerializeField] float climbSpeed = 0.01f;
+    bool onLadder = false;
+    bool grounded = false;
 
     private void OnEnable()
     {
@@ -67,14 +70,34 @@ public class PlayerMovement : MonoBehaviour, IInteract
     {
         if (movementLocked) return;
         _movementDirection = context.ReadValue<Vector2>();
-        if (_movementCoroutine != null) return;
-        _movementCoroutine = StartCoroutine(Move());
+
+            if (_movementCoroutine != null) return;
+            _movementCoroutine = StartCoroutine(Move());
+        
+
+        
     }
     void EndMove(InputAction.CallbackContext context) 
     {
         _movementDirection = Vector2.zero;
         StopCoroutine(_movementCoroutine);
         _movementCoroutine = null;
+    }
+
+    IEnumerator ClimbLadder()
+    {
+        _rigidbody.useGravity = false;
+        while (onLadder)
+        {
+            if (_movementDirection == Vector2.zero) {  _rigidbody.velocity = Vector3.zero; }
+            _rigidbody.velocity += new Vector3(0, _movementDirection.y * climbSpeed, 0);
+            yield return new WaitForFixedUpdate();
+        }
+        _rigidbody.useGravity = true;
+        if (_movementDirection != Vector2.zero)
+        {
+            _movementCoroutine = StartCoroutine(Move());
+        }
     }
 
     IEnumerator Move() 
@@ -85,15 +108,19 @@ public class PlayerMovement : MonoBehaviour, IInteract
 
         while (_movementDirection != Vector2.zero && !movementLocked)
         {
-            Debug.Log("running while");
-            _rigidbody.AddForce(cameraLook.transform.forward * _movementDirection.y * movementForce);
+            if (!onLadder) _rigidbody.AddForce(cameraLook.transform.forward * _movementDirection.y * movementForce); 
             _rigidbody.AddForce(cameraLook.transform.right * _movementDirection.x * movementForce);
-            _rigidbody.velocity = Vector3.ClampMagnitude(Vector3.ProjectOnPlane(_rigidbody.velocity, Vector3.up), maxSpeed) + (Vector3.up * _rigidbody.velocity.y);
+            //_rigidbody.velocity = Vector3.ClampMagnitude(Vector3.ProjectOnPlane(_rigidbody.velocity, Vector3.up), maxSpeed) + (Vector3.up * _rigidbody.velocity.y); 
+            _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity,  maxSpeed);
 
             Quaternion targetRot = cameraLook.transform.rotation * Quaternion.LookRotation(new Vector3(_movementDirection.x, 0, _movementDirection.y), Vector3.up);
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, targetRot, rotationSpeed);
 
             yield return new WaitForFixedUpdate();
+        }
+        if (onLadder)
+        {
+            StartCoroutine(ClimbLadder());
         }
     }
 
@@ -109,6 +136,37 @@ public class PlayerMovement : MonoBehaviour, IInteract
     public void BeginInteract(int actionType) { movementLocked = true; }
     public void EndInteract() { movementLocked = false; }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Ladder")
+        {
+            onLadder = true;
+            StartCoroutine(ClimbLadder());
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Ladder")
+        {
+            onLadder = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = false;
+        }
+    }
 
 }
