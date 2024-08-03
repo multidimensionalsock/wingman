@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] InventoryList inventoryList;
     [SerializeField] GameObject inventoryUIContent;
     [SerializeField] GameObject inventoryitemPrefab;
+    [SerializeField] GameObject descriptionbox;
 
     private void OnEnable()
     {
@@ -37,6 +38,7 @@ public class InventoryManager : MonoBehaviour
         GameObject button = Instantiate(inventoryitemPrefab);
         button.GetComponent<Image>().sprite = item.itemImage;
         button.GetComponent<InventoryButton>().inventoryItem = item;
+        button.GetComponent<InventoryButton>().descriptionBox = descriptionbox;
         button.transform.parent = inventoryUIContent.transform;
 
     }
