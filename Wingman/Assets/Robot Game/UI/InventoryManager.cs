@@ -13,7 +13,9 @@ public class InventoryManager : MonoBehaviour
 
     private void OnEnable()
     {
+        inventoryItems = new();
         InventoryObject.AddToInventory += AddToInventory;
+        AddToInventory("eggs");
     }
 
     private void AddToInventory(string name)
@@ -23,9 +25,11 @@ public class InventoryManager : MonoBehaviour
             if (item.name == name)
             {
                 inventoryItems.Add(item);
+                AddToInventoryUI(item);
                 return;
             }
         }
+        //for stacking, if already in the list, add value to list with 2d array saying the item and then the number of them owned.
     }
 
     private void AddToInventoryUI(InventoryItem item)
